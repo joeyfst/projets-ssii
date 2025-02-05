@@ -1,6 +1,6 @@
 package ssii.entity;
 
-import java.util.ArrayList;
+import java.time.LocalDate;
 
 import jakarta.persistence.*;
 
@@ -14,28 +14,20 @@ import lombok.*;
 @NoArgsConstructor
 @RequiredArgsConstructor // lombok, pour générer un constructeur avec les champs @NonNull
 @ToString
-public class Personne {
+public class Projet {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer matricule;
+    private Integer code;
 
     @NotBlank
     @NonNull // lombok
+    @Column(unique=true)
     private String nom;
     
     @NotBlank
     @NonNull
-    private String prenom;
+    private LocalDate debut;
 
-    @NotBlank
-    @NonNull
-    private String poste;
-
-    @JoinColumn(name = "superieur")
-    @ManyToOne
-    private Personne superieur;
-    
-    @OneToMany(mappedBy="superieur")
-    private ArrayList<Personne> subordonnes = new ArrayList<>();
+    private LocalDate fin;
 }
